@@ -31,6 +31,7 @@ public class TicketService {
 
     public String update(Ticket ticket, Long id) {
         Ticket temp;
+        System.out.println(ticket.toString());
         try {
             temp = show(id);
             if (ticket.getNombre() != null) {
@@ -54,10 +55,13 @@ public class TicketService {
             if (ticket.getEstado() != null) {
                 temp.setEstado(ticket.getEstado().getId());
             }
+            if (ticket.getEncargado() != null) {
+                temp.setEncargado(ticket.getEncargado().getId());
+            }
             ticketRepository.save(ticket);
             return "Ticket actualizado";
         } catch (Exception e) {
-            return "No existe ticket con este id";
+            return e.toString();
         }
     }
     public String delete(Long id) {

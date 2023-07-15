@@ -1,7 +1,10 @@
 package com.system.main.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -18,27 +21,20 @@ public class Usuario {
     @Column(unique = true, nullable = false)
     @Getter @Setter private String rut;
     @Getter @Setter private String correo;
-    @Column(nullable = false)
     @Getter @Setter private String clave;
     @OneToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;
     @OneToOne
-    @JoinColumn(name = "id_area", nullable = true)
+    @JoinColumn(name = "id_area")
     private Area area;
+    @OneToMany(mappedBy = "encargado")
+    @JsonIgnore
+    private List<Ticket> tickets;
 
 
-    public Usuario(String nombre, String apellido, String rut, String correo, String clave, Long rol, Long area) {
-        if (area == null) {
-            rol = 1L;
-        }
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.rut = rut;
-        this.correo = correo;
-        this.clave = clave;
-        this.area = new Area(area);
-        this.rol = new Rol(rol);
+    public Usuario(Long id) {
+        this.id = id;
     }
 
     public Rol getRol() {

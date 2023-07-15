@@ -13,32 +13,20 @@ public class Ticket {
     @Column(unique = true, nullable = false)
     @Getter private Long id;
 
-    @Column(nullable = false)
     @Getter @Setter private String nombre;
-    @Column(nullable = false)
     @Getter @Setter private String apellido;
-    @Column(unique = true, nullable = false)
     @Getter @Setter private String rut;
-    @Column(nullable = false)
     @Getter @Setter private String correo;
-    @Column(nullable = false)
     private String asunto;
+    @ManyToOne
+    @JoinColumn(name = "encargado")
+    private Usuario encargado;
     @OneToOne
     @JoinColumn(name = "id_area")
     private Area area;
     @OneToOne
-    @JoinColumn(name = "id_estado",nullable = false)
+    @JoinColumn(name = "id_estado")
     private Estado estado;
-
-    public Ticket(String nombre, String apellido, String rut, String correo, String asunto, Long area, Long estado) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.rut = rut;
-        this.correo = correo;
-        this.asunto = asunto;
-        this.area = new Area(area);
-        this.estado = new Estado(estado);
-    }
 
     public Estado getEstado() {
         return estado;
@@ -54,5 +42,13 @@ public class Ticket {
 
     public void setArea(Long id) {
         this.area = new Area(id);
+    }
+
+    public Usuario getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Long id) {
+        this.encargado = new Usuario(id);
     }
 }

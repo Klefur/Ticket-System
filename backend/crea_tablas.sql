@@ -31,5 +31,7 @@ create table if not exists usuario
  asunto varchar(500),
  id_estado int,
  id_area int,
+ encargado int,
+ constraint fk_usuario foreign key(encargado) references usuario(id);
  constraint fk_estado foreign key(id_estado) references estado(id),
  constraint fk_area foreign key(id_area) references area(id));

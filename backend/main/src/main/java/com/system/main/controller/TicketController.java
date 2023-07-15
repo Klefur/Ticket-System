@@ -16,6 +16,7 @@ public class TicketController {
 
     @PostMapping()
     public Ticket guardar(@RequestBody Ticket ticket) {
+        ticket.setEstado(1L);
         return ticketService.create(ticket);
     }
 
