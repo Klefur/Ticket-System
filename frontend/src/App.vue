@@ -4,9 +4,9 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header class="header">
+  <main class="header assgignment-page">
     <div class="logo-container">
-      <img alt="Usach logo" class="logo" src="@/assets/logo.svg" width="200" height="200" />
+      <img alt="Usach logo" class="logo filter-green" src="@/assets/logo.svg" width="200" height="200" />
     </div>
 
     <div class="content-wrapper">
@@ -14,17 +14,28 @@ import { RouterLink, RouterView } from 'vue-router'
       <h2 class="subtitle">Universidad Santiago de Chile</h2>
 
       <nav>
-        <RouterLink class="nav-link" to="/">Asignar Analista</RouterLink>
+        <RouterLink class="nav-link" to="/Areas">Asignar Analista</RouterLink>
         <RouterLink class="nav-link" to="/CrearTicket">Crear Ticket</RouterLink>
         
       </nav>
     </div>
-  </header>
+  </main>
 
   <RouterView />
 </template>
 
 <style scoped>
+.assignment-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #F9F9F9;
+  }
+.filter-green{
+    filter: invert(44%) sepia(91%) saturate(2964%) hue-rotate(150deg) brightness(98%) contrast(101%);
+}
 .header {
   display: flex;
   flex-direction: column;
