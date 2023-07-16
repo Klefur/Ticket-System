@@ -1,5 +1,6 @@
 package com.system.main.controller;
 
+import com.system.main.model.Area;
 import com.system.main.model.Usuario;
 import com.system.main.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin({"http://localhost:8086/", "http://127.0.0.1:5173/"})
 public class UsuarioController {
 
     @Autowired
@@ -28,8 +30,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Usuario getArea(@PathVariable Long id) {
+    public Usuario getUsuario(@PathVariable Long id) {
         return usuarioService.show(id);
+    }
+
+    @GetMapping("/area/{id}")
+    public List<Usuario> getAllByRol(@PathVariable Long id) {
+        return usuarioService.getAllByArea(id);
     }
 
     @PutMapping("/{id}")

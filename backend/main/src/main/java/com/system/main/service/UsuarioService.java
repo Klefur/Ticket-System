@@ -1,5 +1,6 @@
 package com.system.main.service;
 
+import com.system.main.model.Area;
 import com.system.main.model.Usuario;
 import com.system.main.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class UsuarioService {
 
     public Usuario show(Long id) {
         return usuarioRepository.findById(id).get();
+    }
+
+    public List<Usuario> getAllByArea(Long id) {
+        Area area = new Area(id);
+        return usuarioRepository.getAllByArea(area);
     }
 
     public String update(Usuario usuario, Long id) {

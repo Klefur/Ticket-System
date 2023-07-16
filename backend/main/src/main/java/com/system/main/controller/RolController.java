@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rol")
+@CrossOrigin({"http://localhost:8086/", "http://127.0.0.1:5173/"})
 public class RolController {
 
     @Autowired
@@ -25,7 +26,7 @@ public class RolController {
     }
 
     @GetMapping("/{id}")
-    public Rol getArea(@PathVariable Long id) {
+    public Rol getRol(@PathVariable Long id) {
         return rolService.show(id);
     }
 

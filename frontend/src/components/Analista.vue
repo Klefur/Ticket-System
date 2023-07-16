@@ -17,8 +17,8 @@
             <tbody>
               <tr v-for="ticket in tickets" :key="ticket.id">
                 <td>{{ ticket.id }}</td>
-                <td>{{ ticket.descripcion }}</td>
-                <td>{{ ticket.estado }}</td>
+                <td>{{ ticket.asunto }}</td>
+                <td>{{ ticket.estado?.nombre }}</td>
                 <td>
                   <button
                     class="select-button"
@@ -48,7 +48,7 @@
               <tr v-for="analista in analistas" :key="analista.id">
                 <td>{{ analista.id }}</td>
                 <td>{{ analista.nombre }}</td>
-                <td>{{ analista.especialidad }}</td>
+                <td>{{ analista.area.nombre }}</td>
                 <td>
                   <button
                     class="select-button"
@@ -64,7 +64,7 @@
         </div>
   
         <div class="selected-options">
-          <p class="selected-ticket" v-if="selectedTicket">Ticket seleccionado: {{ selectedTicket.descripcion }}</p>
+          <p class="selected-ticket" v-if="selectedTicket">Ticket seleccionado: {{ selectedTicket.asunto }}</p>
           <p class="selected-analista" v-if="selectedAnalista">Analista seleccionado: {{ selectedAnalista.nombre }}</p>
         </div>
   
@@ -78,21 +78,29 @@
   </template>
   
   <script>
-  import { ref } from 'vue'
+  import UsuarioService from '../services/UsuarioService';
+  import TicketService from '../services/TicketService';
+
+  const analistas = async () => {
+    const response = await UsuarioService.getArea(1);
+    return response.data;
+  };
+
+  const tickets = async () => {
+    const response = await TicketService.getAll();
+    return response.data;
+  };
+  let response = await analistas();
+  console.log({"person": "analistas", response});
+  let response2 = await tickets();
+  console.log({"person": "tickets", response2});
+
   
   export default {
     data() {
       return {
-        tickets: [
-          { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
-          { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
-          { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-        ],
-        analistas: [
-          { id: 1, nombre: 'Analista 1', especialidad: 'Especialidad 1' },
-          { id: 2, nombre: 'Analista 2', especialidad: 'Especialidad 2' },
-          { id: 3, nombre: 'Analista 3', especialidad: 'Especialidad 3' },
-        ],
+        tickets: response2,
+        analistas: response,
         selectedTicket: null,
         selectedAnalista: null,
         assignedTicket: false,
