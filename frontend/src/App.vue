@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <NavBar />
     <router-view class="container"/>
   </div>
@@ -18,10 +18,11 @@ export default {
 
 <style>
   .container {
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        padding: 300px;
-        background-color: #f9f9f9;
+    justify-content: center;
+    align-items: center;
+    padding: 12rem 2rem 12rem 2rem;
+    background-color: #f9f9f9;
+    display: grid;
+    grid-gap: 1rem;
   }
 </style>
