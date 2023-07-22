@@ -10,7 +10,7 @@
         </div>
 
         <ul class="nav">
-            <li v-if="isLoggedIn.is_logged === 'false'">
+            <li v-if="isLogged.is_logged === 'false'">
                 <router-link to="/login"> Login </router-link>
             </li>
             <li v-else>
@@ -30,6 +30,7 @@ const isLogged = reactive({
 
 const logout = () => {
     localStorage.setItem('is_logged', false);
+    localStorage.removeItem('user');
 }
 </script>
 

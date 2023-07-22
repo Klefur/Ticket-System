@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +18,9 @@ public class Estado {
     @Getter private Long id;
     
     @Getter @Setter private String nombre;
-    @OneToOne(mappedBy = "estado")
+    @OneToMany(mappedBy = "estado")
     @JsonIgnore
-    private Ticket ticket;
+    private List<Ticket> ticket;
 
     public Estado(Long id) {
         this.id = id;

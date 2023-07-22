@@ -1,5 +1,7 @@
 package com.system.main.service;
 
+import com.system.main.model.Area;
+import com.system.main.model.Estado;
 import com.system.main.model.Ticket;
 import com.system.main.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,13 @@ public class TicketService {
 
     public List<Ticket> getAllByRut(String rut) {
         return ticketRepository.findAllByRut(rut);
+    }
+
+    public List<Ticket> getAllByArea(Long idArea, Long idEstado) {
+        Area area = new Area(idArea);
+        Estado estado = new Estado(idEstado);
+
+        return ticketRepository.findAllByAreaAndEstado(area, estado);
     }
 
     public Ticket show(Long id) {

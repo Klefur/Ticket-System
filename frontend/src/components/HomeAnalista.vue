@@ -13,8 +13,8 @@
         <tbody>
           <tr v-for="ticket in tickets" :key="ticket.id">
             <td>{{ ticket.id }}</td>
-            <td>{{ ticket.descripcion }}</td>
-            <td>{{ ticket.estado }}</td>
+            <td>{{ ticket.asunto }}</td>
+            <td>{{ ticket.estado?.nombre }}</td>
             <td>
               <button @click="revisarTicket(ticket.id)">Revisar</button>
               <button @click="responderTicket(ticket.id)">Responder</button>
@@ -24,39 +24,47 @@
         </tbody>
       </table>
     </div>
-  </template>
+</template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        tickets: [
-          { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
-          { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
-          { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-          // Agrega más tickets según tus necesidades
-        ],
-      };
-    },
-    methods: {
-      revisarTicket(ticketId) {
-        // Lógica para revisar el ticket con el ID dado
-        console.log(`Revisando ticket con ID: ${ticketId}`);
-      },
-      responderTicket(ticketId) {
-        // Lógica para responder al ticket con el ID dado
-        console.log(`Respondiendo al ticket con ID: ${ticketId}`);
-      },
-      eliminarTicket(ticketId) {
-        // Lógica para eliminar el ticket con el ID dado
-        console.log(`Eliminando ticket con ID: ${ticketId}`);
-      },
-    },
-  };
-  </script>
+<script setup>
+import { ref, onMounted } from 'vue';
+import http from '../http-common';
+
+  const tickets = ref([])
+
+  const getTickets = async () => {
+    // Lógica para obtener los tickets
+    const tickets = await http.get('/ticket')
+      .then((response) => {
+        return response.data;
+      })
+    console.log(tickets)
+    return tickets
+  }
+
+  onMounted(async () => {
+    tickets.value = await getTickets()
+  })
+
+  const revisarTicket = (ticketId) => {
+    // Lógica para revisar el ticket con el ID dado
+    console.log(`Revisando ticket con ID: ${ticketId}`);
+  }
+
+  const responderTicket = (ticketId) => {
+    // Lógica para responder al ticket con el ID dado
+    console.log(`Respondiendo al ticket con ID: ${ticketId}`);
+  }
+
+  const eliminarTicket = (ticketId) => {
+    // Lógica para eliminar el ticket con el ID dado
+    console.log(`Eliminando ticket con ID: ${ticketId}`);
+  }
+</script>
   
   <style scoped>
   .Historial {
+    height: 76vh;
     display: flex;
     justify-content: center;
     padding: 100px;
@@ -64,6 +72,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #000;
     
   }
   

@@ -22,10 +22,10 @@ public class Usuario {
     @Getter @Setter private String rut;
     @Getter @Setter private String correo;
     @Getter @Setter private String clave;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_rol")
     private Rol rol;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_area")
     private Area area;
     @OneToMany(mappedBy = "encargado")

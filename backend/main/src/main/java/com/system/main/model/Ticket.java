@@ -12,19 +12,17 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     @Getter private Long id;
-
-    @Getter @Setter private String nombre;
-    @Getter @Setter private String apellido;
     @Getter @Setter private String rut;
     @Getter @Setter private String correo;
-    private String asunto;
+    @Getter @Setter private String prioridad;
+    @Getter @Setter private String asunto;
     @ManyToOne
     @JoinColumn(name = "encargado")
     private Usuario encargado;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_area")
     private Area area;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_estado")
     private Estado estado;
 

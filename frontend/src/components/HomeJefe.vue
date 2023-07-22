@@ -1,8 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
 <template>
   <header class="header">
     <div class="content-wrapper">
@@ -10,15 +5,11 @@ import { RouterLink, RouterView } from 'vue-router'
       <h2 class="subtitle">Universidad Santiago de Chile</h2>
 
       <nav>
-        <RouterLink class="nav-link" to="/crear-ticket">Crear Ticket</RouterLink>
-        <RouterLink class="nav-link" to="/asignar-ticket">Asignar Analista</RouterLink>
-       
-        
+        <router-link class="nav-link" to="/crear-ticket">Crear Ticket</router-link>
+        <router-link class="nav-link" to="/asignar-ticket">Asignar Analista</router-link> 
       </nav>
     </div>
   </header>
-
-  <RouterView />
 </template>
 
 <style scoped>
@@ -26,7 +17,7 @@ import { RouterLink, RouterView } from 'vue-router'
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 72vh;
   width:700px;
   background-color: #f8f8f8;
 }

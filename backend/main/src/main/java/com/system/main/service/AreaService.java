@@ -25,6 +25,10 @@ public class AreaService {
         return areaRepository.findById(id).get();
     }
 
+    public Area findByNombre(String nombre) {
+        return areaRepository.findByNombre(nombre).get();
+    }
+
     public String update(Area area, Long id) {
         Area temp;
         try {

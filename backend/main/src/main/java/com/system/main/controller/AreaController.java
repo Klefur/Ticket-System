@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/area")
-@CrossOrigin({"http://localhost:8086/", "http://127.0.0.1:5173/"})
+@CrossOrigin
 public class AreaController {
 
     @Autowired
@@ -28,6 +28,11 @@ public class AreaController {
     @GetMapping("/{id}")
     public Area getArea(@PathVariable Long id) {
         return areaService.show(id);
+    }
+
+    @GetMapping("/nombre/{nombre}")
+    public Area getAreaByNombre(@PathVariable String nombre) {
+        return areaService.findByNombre(nombre);
     }
 
     @PutMapping("/{id}")

@@ -24,8 +24,8 @@
       <label for="area">Asignar Área:</label>
       <select id="area" v-model="area">
         <option value="">Selecciona un área</option>
-        <option value="educacion">Educación</option>
-        <option value="salud">Salud</option>
+        <option v-for="area in areas" :value="area.nombre"> {{ area.nombre }} </option>
+        
         <!-- Agrega más opciones según tus necesidades -->
       </select>
     </div>
@@ -37,15 +37,19 @@
     <p v-if="ticketCreated" class="notification">Ticket creado con éxito</p>
 
 
-
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import http from '../http-common';
 
-const email = ref('')
-const rut = ref('')
+const user = JSON.parse(localStorage.getItem('user'))
+
+const areas = ref([]);
+
+const email = ref(user.correo)
+const rut = ref(user.rut)
 const subject = ref('')
 const area = ref('')
 
@@ -72,6 +76,15 @@ const areAllFieldsFilled = computed(() => {
 // Variable para la notificación
 const ticketCreated = ref(false)
 
+const getAreas = async () => {
+  const areas = await http.get(`/area`)
+    .then((response) => {
+      return response.data;
+    })
+  console.log(areas)
+  return areas
+}
+
 function validateEmail(email) {
   // Implementa tu lógica de validación del correo electrónico aquí
   // Puedes usar expresiones regulares u otras técnicas para validar el formato del correo
@@ -90,30 +103,46 @@ function validateRut(rut) {
   return rutRegex.test(rut)
 }
 
-function submitForm() {
+async function submitForm() {
+  
   // Lógica para enviar el formulario
+
   if (areAllFieldsFilled.value) {
+    const idArea = areas.value.find((area2) => area.value === area2.nombre).id
+    console.log(idArea)
+    const data = {
+      correo: email.value,
+      rut: rut.value,
+      asunto: subject.value,
+      area: idArea
+    }
+
+    console.log(data)
+
+    http.post('/ticket', data)
+      .then((response) => {
+        console.log(response.data)
+      })
     console.log(`Ticket creado con éxito`)
     ticketCreated.value = true
   } else {
     console.log(`Ingresa un correo, RUT válido, un asunto y selecciona un área`)
   }
 }
+
+onMounted(async () => {
+  areas.value = await getAreas()
+})
 </script>
 
 <style>
 /* Estilos adicionales para la página AboutView, si es necesario */
-.about {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-}
 
 .notification {
   font-size: 1rem;
   margin-top: 1rem;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
-  color: #F17E22;
+  color: #000000;
 }
 
 .submit-button {
@@ -133,7 +162,7 @@ function submitForm() {
 .CrearTicket {
   background-color: #F9F9F9;  
   height: 100vh;
-  width:700px;
+  width:100%;
   padding: 2rem;
 }
 

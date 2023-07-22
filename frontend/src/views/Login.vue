@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="screen-height">
         <div class="login-form">
           <h1 class="login-title">Iniciar Sesión</h1>
           <input v-model="mail" class="login-input" placeholder="Correo" />
@@ -40,8 +40,6 @@ const redirectToHome = async () => {
         return response.data;
       })
 
-    console.log(user)
-
     if (user) {
       localStorage.setItem('is_logged', true)
       localStorage.setItem('user', JSON.stringify(user))
@@ -55,6 +53,13 @@ const redirectToHome = async () => {
 
 <style>
 /* Estilos del formulario de inicio de sesión */
+.screen-height {
+        height: 86vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
 
 .login-form {
   padding: 20px;

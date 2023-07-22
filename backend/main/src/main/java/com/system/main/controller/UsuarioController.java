@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
-@CrossOrigin({"http://localhost:8086/", "http://127.0.0.1:5173/"})
+@CrossOrigin
 public class UsuarioController {
 
     @Autowired
@@ -34,13 +34,13 @@ public class UsuarioController {
         return usuarioService.show(id);
     }
 
-    @GetMapping("/area/{id}")
-    public List<Usuario> getAllByRol(@PathVariable Long id) {
-        return usuarioService.getAllByArea(id);
+    @GetMapping("/area/{areaId}rol{rolId}")
+    public List<Usuario> getAllByRol(@PathVariable Long areaId, @PathVariable Long rolId) {
+        return usuarioService.getAllByArea(areaId, rolId);
     }
 
     @PostMapping("/login")
-    public boolean login(@RequestBody Usuario usuario) {
+    public Usuario login(@RequestBody Usuario usuario) {
         return usuarioService.login(usuario);
     }
 

@@ -17,8 +17,9 @@
             <tbody>
               <tr v-for="ticket in tickets" :key="ticket.id">
                 <td>{{ ticket.id }}</td>
-                <td>{{ ticket.descripcion }}</td>
+                <td>{{ ticket.asunto }}</td>
                 <td>{{ ticket.estado }}</td>
+                <td>{{ ticket.priodidad }}</td>
                 <td>
                   <button
                     class="select-button"
@@ -48,7 +49,7 @@
               <tr v-for="analista in analistas" :key="analista.id">
                 <td>{{ analista.id }}</td>
                 <td>{{ analista.nombre }}</td>
-                <td>{{ analista.especialidad }}</td>
+                <td>{{ analista.area.nombre }}</td>
                 <td>
                   <button
                     class="select-button"
@@ -91,17 +92,40 @@
 </template>
   
 <script setup>
-  const tickets = [
-          { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
-          { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
-          { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-  ]
+  import { onMounted, ref } from 'vue';
+  import http from '../http-common';
 
-  const analistas = [
-          { id: 1, nombre: 'Analista 1', especialidad: 'Especialidad 1' },
-          { id: 2, nombre: 'Analista 2', especialidad: 'Especialidad 2' },
-          { id: 3, nombre: 'Analista 3', especialidad: 'Especialidad 3' },
-  ]
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  const tickets = ref([])
+
+  const analistas = ref([])
+
+  const getTickets = async () => {
+    // Lógica para obtener los tickets
+    const tickets = await http.get('/ticket/area/' + user.area.id + 'estado' + 1)
+      .then((response) => {
+        return response.data;
+      })
+    console.log(tickets)
+    return tickets
+  }
+
+  const getAnalistas = async () => {
+    // Lógica para obtener los analistas
+    const analistas = await http.get('/usuario/area/' + user.area.id + 'rol' + 2)
+      .then((response) => {
+        return response.data;
+      })
+    console.log(analistas)
+    return analistas
+  }
+
+  onMounted(async () => {
+    tickets.value = await getTickets()
+    analistas.value = await getAnalistas()
+  })
+
 
   let selectedTicket = null
   let selectedAnalista = null
@@ -118,6 +142,18 @@
 
   const assignAnalyst = () => {
     if (prioridad) {
+      const id = selectedTicket.id,
+      data = {
+        encargado: selectedAnalista.id,
+        prioridad: prioridad
+      }
+      http.put('/ticket/' + id, data)
+        .then((response) => {
+          console.log(response.data)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     console.log(`Asignando el ticket "${selectedTicket.descripcion}" al analista "${selectedAnalista.nombre}" con prioridad "${prioridad}"`);
     assignedTicket = true;
     } else {
@@ -127,6 +163,9 @@
 </script>
   
 <style scoped>
+.Asignar {
+  height: fit;
+}
 .form-group {
     margin-bottom: 1rem;
     display: flex;

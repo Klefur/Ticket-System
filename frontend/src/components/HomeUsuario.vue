@@ -1,9 +1,5 @@
 <template>
-  <header class="header">
-    <div class="logo-container">
-      <img alt="Usach logo" class="logo" src="@/assets/logo.svg" width="200" height="200" />
-    </div>
-
+  <div class="header">
     <div class="content-wrapper">
       <h1 class="title">Sistema de Tickets</h1>
       <h2 class="subtitle">Universidad Santiago de Chile</h2>
@@ -12,12 +8,9 @@
         <router-link class="nav-link" to="/crear-ticket">Crear Ticket</router-link>
         
         <router-link class="nav-link" to="/historial">Historial</router-link>
-        
       </nav>
     </div>
-  </header>
-
-  <RouterView />
+  </div>
 </template>
 
 <style scoped>
@@ -25,8 +18,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width:700px;
+  height: 72vh;
+  width:600px;
   background-color: #f8f8f8;
 }
 

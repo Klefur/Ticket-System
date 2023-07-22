@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,9 +18,9 @@ public class Rol {
     @Getter private Long id;
 
     @Getter @Setter private String nombre;
-    @OneToOne(mappedBy = "rol")
+    @OneToMany(mappedBy = "rol")
     @JsonIgnore
-    private Usuario usuario;
+    private List<Usuario> usuario;
 
     public Rol(Long id) {
         this.id = id;

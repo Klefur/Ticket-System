@@ -1,32 +1,47 @@
 <template>
     <div class="Historial">
       <h1>Historial de Tickets</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="ticket in tickets" :key="ticket.id">
-            <td>{{ ticket.id }}</td>
-            <td>{{ ticket.descripcion }}</td>
-            <td>{{ ticket.estado }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="ticket in tickets" :key="ticket.id">
+              <td>{{ ticket.id }}</td>
+              <td>{{ ticket.descripcion }}</td>
+              <td>{{ ticket.estado }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </template>
   
 <script setup>
-  const tickets = [
-    { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
-    { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
-    { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-        // Agrega más tickets según tus necesidades
-  ]
+  import http from '../http-common';
+  import { ref, onMounted } from 'vue';
+
+  const tickets = ref();
+
+  const getTickets = async () => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    const tickets = await http.get(`/ticket/rut/${user.rut}`)
+      .then((response) => {
+        return response.data;
+      })
+    console.log(tickets)
+    return tickets
+  }
+
+  onMounted(async () => {
+    tickets.value = await getTickets()
+  })
+
 </script>
   
   <style scoped>
@@ -35,9 +50,17 @@
     flex-direction: column;
     align-items: center;
     justify-content: center; /* Centrar verticalmente */
-    height: 100vh;
-    width: 700px;
+    height: 86vh;
     margin: 0 auto; /* Centrar horizontalmente */
+    padding: 10vh, 10vh, 10vh ,10vh;
+  }
+
+  .table {
+    width: 40%;
+    border-collapse: collapse;
+    background-color: #F0F0F0;
+    border: 1px solid #00A9A0;
+    color: #000000;
   }
   
   h1 {

@@ -1,6 +1,7 @@
 package com.system.main.service;
 
 import com.system.main.model.Area;
+import com.system.main.model.Rol;
 import com.system.main.model.Usuario;
 import com.system.main.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,23 @@ public class UsuarioService {
         return usuarioRepository.findById(id).get();
     }
 
-    public List<Usuario> getAllByArea(Long id) {
-        Area area = new Area(id);
-        return usuarioRepository.getAllByArea(area);
+    public List<Usuario> getAllByArea(Long areaId, Long rolId) {
+        Area area = new Area(areaId);
+        Rol rol = new Rol(rolId);
+        return usuarioRepository.getAllByAreaAndRol(area, rol);
     }
 
-    public boolean login(Usuario usuario) {
-        Usuario logUser = usuarioRepository.getUsuarioByCorreo(usuario.getCorreo()).get();
+    public Usuario login(Usuario usuario) {
+        try {
+            Usuario logUser = usuarioRepository.getUsuarioByCorreo(usuario.getCorreo()).get();
 
-        return logUser.getClave().equals(usuario.getClave());
+            if (logUser.getClave().equals(usuario.getClave())) {
+                return logUser;
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public String update(Usuario usuario, Long id) {
