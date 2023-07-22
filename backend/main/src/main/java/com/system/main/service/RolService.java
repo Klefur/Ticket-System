@@ -38,6 +38,7 @@ public class RolService {
             return "No existe rol con este id";
         }
     }
+
     public String delete(Long id) {
         try {
             rolRepository.deleteById(id);

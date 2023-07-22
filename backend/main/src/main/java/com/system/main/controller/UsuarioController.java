@@ -39,6 +39,11 @@ public class UsuarioController {
         return usuarioService.getAllByArea(id);
     }
 
+    @PostMapping("/login")
+    public boolean login(@RequestBody Usuario usuario) {
+        return usuarioService.login(usuario);
+    }
+
     @PutMapping("/{id}")
     public String actualizar(@RequestBody Usuario usuario, @PathVariable Long id) {
         return usuarioService.update(usuario, id);

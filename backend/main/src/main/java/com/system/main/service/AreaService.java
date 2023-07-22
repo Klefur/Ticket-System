@@ -38,6 +38,7 @@ public class AreaService {
             return "No existe area con este id";
         }
     }
+
     public String delete(Long id) {
         try {
             areaRepository.deleteById(id);

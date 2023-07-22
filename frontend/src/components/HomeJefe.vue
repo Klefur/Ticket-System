@@ -5,10 +5,6 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header class="header">
-    <div class="logo-container">
-      <img alt="Usach logo" class="logo" src="@/assets/logo.svg" width="200" height="200" />
-    </div>
-
     <div class="content-wrapper">
       <h1 class="title">Sistema de Tickets</h1>
       <h2 class="subtitle">Universidad Santiago de Chile</h2>

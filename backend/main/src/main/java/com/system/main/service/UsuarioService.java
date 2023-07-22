@@ -31,6 +31,12 @@ public class UsuarioService {
         return usuarioRepository.getAllByArea(area);
     }
 
+    public boolean login(Usuario usuario) {
+        Usuario logUser = usuarioRepository.getUsuarioByCorreo(usuario.getCorreo()).get();
+
+        return logUser.getClave().equals(usuario.getClave());
+    }
+
     public String update(Usuario usuario, Long id) {
         Usuario temp;
         try {
@@ -62,6 +68,7 @@ public class UsuarioService {
             return "No existe usuario con este id";
         }
     }
+
     public String delete(Long id) {
         try {
             usuarioRepository.deleteById(id);

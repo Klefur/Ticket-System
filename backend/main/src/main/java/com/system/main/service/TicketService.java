@@ -14,6 +14,10 @@ public class TicketService {
     TicketRepository ticketRepository;
 
     public Ticket create(Ticket ticket) {
+        List<Ticket> tickets = getAllByRut(ticket.getRut());
+        if (!(tickets.size() <= 5)) {
+            return null;
+        }
         return ticketRepository.save(ticket);
     }
 

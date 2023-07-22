@@ -8,4 +8,7 @@ const app = createApp(App)
 
 app.use(router)
 
+app.config.globalProperties.isLoggedIn = false
+app.config.globalProperties.user = null
+
 app.mount('#app')

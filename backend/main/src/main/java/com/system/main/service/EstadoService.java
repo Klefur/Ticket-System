@@ -38,6 +38,7 @@ public class EstadoService {
             return "No existe estado con este id";
         }
     }
+
     public String delete(Long id) {
         try {
             estadoRepository.deleteById(id);
