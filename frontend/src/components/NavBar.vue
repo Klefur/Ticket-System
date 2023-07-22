@@ -1,22 +1,37 @@
 <template>
     <nav class="navbar">
         <div class="brand logo-container">
-            <router-link to="/" onclick="this.isLoggedIn = false" class="img1">
+            <router-link to="/home" class="img1" v-if="isLogged.is_logged === 'true'">
+                    <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
+            </router-link>
+            <router-link to="/" class="img1" v-else>
                     <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
             </router-link>
         </div>
 
         <ul class="nav">
-            <li v-if="!this.isLoggedIn">
+            <li v-if="isLoggedIn.is_logged === 'false'">
                 <router-link to="/login"> Login </router-link>
             </li>
             <li v-else>
-                <router-link to="/" onclick="this.isLoggedIn = false"> Logout </router-link>
+                <router-link to="/" @click="logout"> Logout </router-link>
             </li>
         </ul>
 
     </nav>
 </template>
+
+<script setup>
+import { reactive } from 'vue';
+
+const isLogged = reactive({
+    is_logged: localStorage.getItem('is_logged')
+});
+
+const logout = () => {
+    localStorage.setItem('is_logged', false);
+}
+</script>
 
 <style scoped>
     .navbar {

@@ -20,20 +20,14 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    data() {
-      return {
-        tickets: [
-          { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
-          { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
-          { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-          // Agrega más tickets según tus necesidades
-        ],
-      };
-    },
-  };
-  </script>
+<script setup>
+  const tickets = [
+    { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
+    { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
+    { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
+        // Agrega más tickets según tus necesidades
+  ]
+</script>
   
   <style scoped>
   .Historial {

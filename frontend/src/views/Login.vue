@@ -2,7 +2,7 @@
     <div>
         <div class="login-form">
           <h1 class="login-title">Iniciar Sesión</h1>
-          <input v-model="username" class="login-input" placeholder="Correo" />
+          <input v-model="mail" class="login-input" placeholder="Correo" />
           <input v-model="password" type="password" class="login-input" placeholder="Contraseña" />
           <button :disabled="!isLoginFormValid" @click="redirectToHome" class="login-button">Iniciar Sesión</button>
           <a href="/register">No estas registrado? Registrate!</a>
@@ -10,46 +10,47 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import http from "../http-common";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  data() {
-    return {
-      username: "",
-      password: ""
-    };
-  },
-  computed: {
-    isLoginFormValid() {
-      return (
-        this.username.trim() !== "" &&
-        this.password.trim() !== ""
-      );
-    },
-  },
-  methods: {
-    redirectToHome() {
-        const login = fetch('http://localhost:8086/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                correo: this.username,
-                clave: this.password,
-            }),
-        }).then(response => response.data)
+const router = useRouter();
 
-        if (login) {
-            this.$router.push('/home')
-            this.isLoggedIn = true; 
-        }
-        else {
-            alert('correo o contraseña incorrectos')
-        }
-    },
-  }
-};
+const mail = ref("");
+const password = ref("");
+
+const isLoginFormValid = computed(() => {
+    return (
+      mail.value.trim() !== "" &&
+      password.value.trim() !== ""
+    );
+});
+
+const redirectToHome = async () => {
+    const data = {
+        correo: mail.value,
+        clave: password.value
+    }
+
+    console.log(data)
+
+    const user = await http.post("/usuario/login", data)
+      .then((response) => {
+        return response.data;
+      })
+
+    console.log(user)
+
+    if (user) {
+      localStorage.setItem('is_logged', true)
+      localStorage.setItem('user', JSON.stringify(user))
+      router.push("/home");
+    }
+    else {
+        alert('correo o contraseña incorrectos')
+    }
+}
 </script>
 
 <style>

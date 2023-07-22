@@ -1,8 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-
-</script>
-
 <template>
   <header class="header">
     <div class="logo-container">
@@ -14,9 +9,9 @@ import { RouterLink, RouterView } from 'vue-router'
       <h2 class="subtitle">Universidad Santiago de Chile</h2>
 
       <nav>
-        <RouterLink class="nav-link" to="/CrearTicket">Crear Ticket</RouterLink>
+        <router-link class="nav-link" to="/crear-ticket">Crear Ticket</router-link>
         
-        <RouterLink class="nav-link" to="/Historial">Historial</RouterLink>
+        <router-link class="nav-link" to="/historial">Historial</router-link>
         
       </nav>
     </div>

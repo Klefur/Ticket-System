@@ -10,8 +10,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <h2 class="subtitle">Universidad Santiago de Chile</h2>
 
       <nav>
-        <RouterLink class="nav-link" to="/CrearTicket">Crear Ticket</RouterLink>
-        <RouterLink class="nav-link" to="/Asignar">Asignar Analista</RouterLink>
+        <RouterLink class="nav-link" to="/crear-ticket">Crear Ticket</RouterLink>
+        <RouterLink class="nav-link" to="/asignar-ticket">Asignar Analista</RouterLink>
        
         
       </nav>

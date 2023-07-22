@@ -88,52 +88,45 @@
         <p v-if="assignedTicket" class="notification">Se logró asignar correctamente un analista al ticket.</p>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
-  import { ref } from 'vue'
-  
-  export default {
-    data() {
-      return {
-        tickets: [
+<script setup>
+  const tickets = [
           { id: 1, descripcion: 'Ticket 1', estado: 'Abierto' },
           { id: 2, descripcion: 'Ticket 2', estado: 'En progreso' },
           { id: 3, descripcion: 'Ticket 3', estado: 'Cerrado' },
-        ],
-        analistas: [
+  ]
+
+  const analistas = [
           { id: 1, nombre: 'Analista 1', especialidad: 'Especialidad 1' },
           { id: 2, nombre: 'Analista 2', especialidad: 'Especialidad 2' },
           { id: 3, nombre: 'Analista 3', especialidad: 'Especialidad 3' },
-        ],
-        selectedTicket: null,
-        selectedAnalista: null,
-        assignedTicket: false,
-        prioridad:'',
-      }
-    },
-    methods: {
-      selectTicket(ticket) {
-        this.selectedTicket = ticket
-      },
-      selectAnalista(analista) {
-        this.selectedAnalista = analista
-      },
-      assignAnalyst() {
-        if (this.prioridad) {
-        console.log(`Asignando el ticket "${this.selectedTicket.descripcion}" al analista "${this.selectedAnalista.nombre}" con prioridad "${this.prioridad}"`);
-        this.assignedTicket = true;
-      } else {
-        alert('Debes seleccionar una prioridad antes de asignar el ticket.');
-      }
-      },
-    },
+  ]
+
+  let selectedTicket = null
+  let selectedAnalista = null
+  let assignedTicket = false
+  let prioridad = ''
+
+  const selectTicket = (ticket) => {
+    selectedTicket = ticket
   }
-  </script>
+
+  const selectAnalista = (analista) => {
+    selectedAnalista = analista
+  }
+
+  const assignAnalyst = () => {
+    if (prioridad) {
+    console.log(`Asignando el ticket "${selectedTicket.descripcion}" al analista "${selectedAnalista.nombre}" con prioridad "${prioridad}"`);
+    assignedTicket = true;
+    } else {
+      alert('Debes seleccionar una prioridad antes de asignar el ticket.');
+    }
+  }
+</script>
   
-  <style scoped>
-
-
+<style scoped>
 .form-group {
     margin-bottom: 1rem;
     display: flex;
