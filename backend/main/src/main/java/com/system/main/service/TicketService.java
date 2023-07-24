@@ -47,12 +47,6 @@ public class TicketService {
         System.out.println(ticket.toString());
         try {
             temp = show(id);
-            if (ticket.getNombre() != null) {
-                temp.setNombre(ticket.getNombre());
-            }
-            if (ticket.getApellido() != null) {
-                temp.setApellido(ticket.getApellido());
-            }
             if (ticket.getRut() != null) {
                 temp.setRut(ticket.getRut());
             }
