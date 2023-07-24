@@ -13,8 +13,8 @@
           <tbody>
             <tr v-for="ticket in tickets" :key="ticket.id">
               <td>{{ ticket.id }}</td>
-              <td>{{ ticket.descripcion }}</td>
-              <td>{{ ticket.estado }}</td>
+              <td>{{ ticket.asunto }}</td>
+              <td>{{ ticket.estado.nombre }}</td>
             </tr>
           </tbody>
         </table>

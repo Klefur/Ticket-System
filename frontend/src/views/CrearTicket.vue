@@ -41,8 +41,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, useRouter } from 'vue'
 import http from '../http-common';
+
+const router = useRouter()
 
 const user = JSON.parse(localStorage.getItem('user'))
 
@@ -125,6 +127,7 @@ async function submitForm() {
       })
     console.log(`Ticket creado con éxito`)
     ticketCreated.value = true
+    router.push('/home')
   } else {
     console.log(`Ingresa un correo, RUT válido, un asunto y selecciona un área`)
   }
