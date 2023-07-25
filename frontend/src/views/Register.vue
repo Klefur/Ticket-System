@@ -1,23 +1,26 @@
 <template>
   <div class="screen-height">
-    <label for="nombre"> Nombre: </label>
-    <input type="text" id="nombre" v-model="nombre">
-
-    <label for="apellido"> Apellido: </label>
-    <input type="text" id="apellido" v-model="apellido">
-
-    <label for="rut"> Rut: </label>
-    <input type="text" id="rut" v-model="rut">
-    <p v-if="!isRutValid" class="invalid-rut">Ingresa un RUT válido</p>
-
-    <label for="correo"> Correo: </label>
-    <input type="text" id="correo" v-model="email">
-    <p v-if="!isEmailValid" class="invalid-email">Ingresa un correo válido</p>
-
-    <label for="password"> Contraseña: </label>
-    <input type="password" id="password" v-model="password">
-
-    <button :disabled="!allFieldsValid" @click="register">Crear Cuenta</button>
+    <div class="login-form">
+      <h1 class="login-title">Regístrate</h1>
+  
+      <p class="input-label"> Nombre: </p>
+      <input v-model="nombre" class="login-input" placeholder="Nombre" type="text"/>
+      <p class="input-label"> Apellido: </p>
+      <input v-model="apellido" class="login-input" placeholder="Apellido" type="text"/>
+      
+      <p class="input-label"> Rut: </p>
+      <p v-if="!isRutValid" class="invalid-rut"> Ingresa un RUT válido</p>
+      <input v-model="rut" class="login-input" placeholder="Rut" type="text"/>
+      
+      <p class="input-label"> Correo: </p>
+      <p v-if="!isEmailValid" class="invalid-email"> Ingresa un correo válido</p>
+      <input v-model="email" class="login-input" placeholder="Correo" type="email"/>
+      
+      <p class="input-label"> Contraseña: </p>
+      <input v-model="password" class="login-input" placeholder="Contraseña" type="password"/>
+      
+      <button :disabled="!allFieldsValid" @click="register" class="login-button">Crear Cuenta</button>
+    </div>
   </div>
 </template>
 
@@ -92,12 +95,75 @@ const register = async () => {
 </script>
 
 <style>
+/* Estilos del formulario de inicio de sesión */
 .screen-height {
   height: 86vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: black;
+}
+
+.login-form {
+  padding: 20px;
+  width: 600px;
+  justify-content: center;
+  align-items: center;
+  background-color: #c9e8e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f17e22;
+  text-align: center;
+}
+
+.login-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.login-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #f17e22;
+  background-color: #95d5d3;
+  border: 2px solid #00a9a0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #00a9a0;
+}
+
+.invalid-email  {
+  color: #C8102E;
+}
+.invalid-rut  {
+  color: #C8102E;
+}
+.input-label  {
+  color: #f17e22;
 }
 </style>

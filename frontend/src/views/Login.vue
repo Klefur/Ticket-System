@@ -2,7 +2,9 @@
   <div class="screen-height">
     <div class="login-form">
       <h1 class="login-title">Iniciar Sesión</h1>
+      <p class="input-label"> Correo: </p>
       <input v-model="mail" class="login-input" placeholder="Correo" />
+      <p class="input-label"> Contraseña: </p>
       <input v-model="password" type="password" class="login-input" placeholder="Contraseña" />
       <button :disabled="!isLoginFormValid" @click="redirectToHome" class="login-button">Iniciar Sesión</button>
       <a href="/register">No estas registrado? Registrate!</a>
@@ -77,7 +79,6 @@ const redirectToHome = async () => {
   font-weight: bold;
   color: #f17e22;
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .login-input {
@@ -114,5 +115,9 @@ const redirectToHome = async () => {
 
 .login-button:hover {
   background-color: #00a9a0;
+}
+
+.input-label  {
+  color: #f17e22;
 }
 </style>
