@@ -6,7 +6,7 @@
 
       <nav>
         <router-link class="nav-link" to="/crear-ticket">Crear Ticket</router-link>
-        
+
         <router-link class="nav-link" to="/historial">Historial</router-link>
       </nav>
     </div>
@@ -19,14 +19,14 @@
   flex-direction: column;
   align-items: center;
   height: 72vh;
-  width:600px;
+  width: 600px;
   background-color: #f8f8f8;
 }
 
 .logo-container {
   margin-bottom: 2rem;
-  width:400px;
-  padding:0px;
+  width: 400px;
+  padding: 0px;
 }
 
 .logo {
@@ -44,7 +44,7 @@
 .title {
   font-size: 2rem;
   margin-bottom: 2rem;
-  width:400px;
+  width: 400px;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
   font-weight: bold;
   color: #F17E22;
@@ -53,7 +53,7 @@
 .subtitle {
   font-size: 1rem;
   margin-bottom: 2rem;
-  width:400px;
+  width: 400px;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
   font-weight: bold;
   color: #F17E22;

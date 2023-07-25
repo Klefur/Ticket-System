@@ -10,15 +10,16 @@
 </template>
 
 <style>
-    .black-text {
-        color: #000000;
-        
-    }
-    .screen-height {
-        height: 86vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
+.black-text {
+    color: #000000;
+
+}
+
+.screen-height {
+    height: 86vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 </style>

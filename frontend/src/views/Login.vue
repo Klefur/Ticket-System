@@ -1,19 +1,20 @@
 <template>
-    <div class="screen-height">
-        <div class="login-form">
-          <h1 class="login-title">Iniciar Sesión</h1>
-          <input v-model="mail" class="login-input" placeholder="Correo" />
-          <input v-model="password" type="password" class="login-input" placeholder="Contraseña" />
-          <button :disabled="!isLoginFormValid" @click="redirectToHome" class="login-button">Iniciar Sesión</button>
-          <a href="/register">No estas registrado? Registrate!</a>
-        </div>
+  <div class="screen-height">
+    <div class="login-form">
+      <h1 class="login-title">Iniciar Sesión</h1>
+      <input v-model="mail" class="login-input" placeholder="Correo" />
+      <input v-model="password" type="password" class="login-input" placeholder="Contraseña" />
+      <button :disabled="!isLoginFormValid" @click="redirectToHome" class="login-button">Iniciar Sesión</button>
+      <a href="/register">No estas registrado? Registrate!</a>
     </div>
+  </div>
 </template>
 
 <script setup>
 import http from "../http-common";
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { store } from "../store";
 
 const router = useRouter();
 
@@ -21,44 +22,44 @@ const mail = ref("");
 const password = ref("");
 
 const isLoginFormValid = computed(() => {
-    return (
-      mail.value.trim() !== "" &&
-      password.value.trim() !== ""
-    );
+  return (
+    mail.value.trim() !== "" &&
+    password.value.trim() !== ""
+  );
 });
 
 const redirectToHome = async () => {
-    const data = {
-        correo: mail.value,
-        clave: password.value
-    }
+  const data = {
+    correo: mail.value,
+    clave: password.value
+  }
 
-    console.log(data)
+  const { data: user } = await http.post("/usuario/login", data)
 
-    const user = await http.post("/usuario/login", data)
-      .then((response) => {
-        return response.data;
-      })
+  
 
-    if (user) {
-      localStorage.setItem('is_logged', true)
-      localStorage.setItem('user', JSON.stringify(user))
-      router.push("/home");
-    }
-    else {
-        alert('correo o contraseña incorrectos')
-    }
+  if (user) {
+    store.isLogged = true;
+    store.user = user;
+
+    console.log(user, store)
+
+    router.push("/home");
+  }
+  else {
+    alert('correo o contraseña incorrectos')
+  }
 }
 </script>
 
 <style>
 /* Estilos del formulario de inicio de sesión */
 .screen-height {
-        height: 86vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+  height: 86vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-form {

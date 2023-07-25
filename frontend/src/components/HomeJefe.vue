@@ -6,7 +6,7 @@
 
       <nav>
         <router-link class="nav-link" to="/crear-ticket">Crear Ticket</router-link>
-        <router-link class="nav-link" to="/asignar-ticket">Asignar Analista</router-link> 
+        <router-link class="nav-link" to="/asignar-ticket">Asignar Analista</router-link>
       </nav>
     </div>
   </header>
@@ -18,14 +18,14 @@
   flex-direction: column;
   align-items: center;
   height: 72vh;
-  width:700px;
+  width: 700px;
   background-color: #f8f8f8;
 }
 
 .logo-container {
   margin-bottom: 2rem;
-  width:400px;
-  padding:0px;
+  width: 400px;
+  padding: 0px;
 }
 
 .logo {
@@ -51,7 +51,7 @@
 .subtitle {
   font-size: 1rem;
   margin-bottom: 2rem;
-  width:400px;
+  width: 400px;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
   font-weight: bold;
   color: #F17E22;

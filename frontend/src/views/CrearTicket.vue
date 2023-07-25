@@ -25,7 +25,7 @@
       <select id="area" v-model="area">
         <option value="">Selecciona un área</option>
         <option v-for="area in areas" :value="area.nombre"> {{ area.nombre }} </option>
-        
+
         <!-- Agrega más opciones según tus necesidades -->
       </select>
     </div>
@@ -41,12 +41,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, useRouter } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import http from '../http-common';
+import { store } from '../store'
+
+const user = store.user
 
 const router = useRouter()
-
-const user = JSON.parse(localStorage.getItem('user'))
 
 const areas = ref([]);
 
@@ -79,11 +81,8 @@ const areAllFieldsFilled = computed(() => {
 const ticketCreated = ref(false)
 
 const getAreas = async () => {
-  const areas = await http.get(`/area`)
-    .then((response) => {
-      return response.data;
-    })
-  console.log(areas)
+  const { data: areas } = await http.get(`/area`)
+
   return areas
 }
 
@@ -100,18 +99,18 @@ function validateRut(rut) {
   // Implementa tu lógica de validación del RUT aquí
   // Puedes usar expresiones regulares u otras técnicas para validar el formato del RUT
   // Retorna true si el RUT es válido, o false en caso contrario
-  
+
   const rutRegex = /^(\d{1,3}\.\d{3}\.\d{3}-\d{1}|\d{1,3}\.\d{3}\.\d{1}-\d{1}|\d{1,3}\.\d{3}-\d{1}|\d{1,3}-\d{1}|\d{1,3}\.\d{3}\.\d{3}-[0-9kK]{1})$/
   return rutRegex.test(rut)
 }
 
 async function submitForm() {
-  
+
   // Lógica para enviar el formulario
 
   if (areAllFieldsFilled.value) {
     const idArea = areas.value.find((area2) => area.value === area2.nombre).id
-    console.log(idArea)
+
     const data = {
       correo: email.value,
       rut: rut.value,
@@ -125,7 +124,9 @@ async function submitForm() {
       .then((response) => {
         console.log(response.data)
       })
+
     console.log(`Ticket creado con éxito`)
+    
     ticketCreated.value = true
     router.push('/home')
   } else {
@@ -149,23 +150,25 @@ onMounted(async () => {
 }
 
 .submit-button {
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #F17E22;
-    background-color: #95D5D3;
-    border: 2px solid var(--color-border);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #F17E22;
+  background-color: #95D5D3;
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 .submit-button:hover {
   background-color: #00A9A0;
 }
+
 .CrearTicket {
-  background-color: #F9F9F9;  
+  background-color: #F9F9F9;
   height: 100vh;
-  width:100%;
+  width: 100%;
   padding: 2rem;
 }
 
@@ -178,20 +181,24 @@ onMounted(async () => {
   margin-bottom: 1.5rem;
   letter-spacing: -1px;
   text-align: center;
-  background-color: #F9F9F9;  
+  background-color: #F9F9F9;
 }
+
 #email::placeholder {
   color: #394650;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
 }
+
 #rut::placeholder {
   color: #394650;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
 }
+
 #subject::placeholder {
   color: #394650;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
 }
+
 #area::placeholder {
   color: #394650;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
@@ -202,8 +209,8 @@ onMounted(async () => {
   background-color: #C9E8E6;
   padding: 1rem;
   border-radius: 4px;
-  border: 2px solid #00A9A0; 
-  color:#394650;
+  border: 2px solid #00A9A0;
+  color: #394650;
   font-family: "Bebas Neue Pro", Arial, sans-serif;
   justify-content: center;
 
@@ -255,5 +262,4 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 </style>

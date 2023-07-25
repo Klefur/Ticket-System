@@ -1,16 +1,16 @@
 <template>
     <nav class="navbar">
         <div class="brand logo-container">
-            <router-link to="/home" class="img1" v-if="isLogged.is_logged === 'true'">
-                    <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
+            <router-link to="/home" class="img1" v-if="store.isLogged">
+                <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
             </router-link>
             <router-link to="/" class="img1" v-else>
-                    <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
+                <img alt="Usach logo" src="@/assets/logo.svg" width="180" height="180" />
             </router-link>
         </div>
 
         <ul class="nav">
-            <li v-if="isLogged.is_logged === 'false'">
+            <li v-if="!store.isLogged">
                 <router-link to="/login"> Login </router-link>
             </li>
             <li v-else>
@@ -22,53 +22,50 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { store } from '../store';
 
-const isLogged = reactive({
-    is_logged: localStorage.getItem('is_logged')
-});
+console.log(store.isLogged)
 
 const logout = () => {
-    localStorage.setItem('is_logged', false);
-    localStorage.removeItem('user');
+    store.user = null;
+    store.isLogged = false;
 }
 </script>
 
 <style scoped>
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 130px;
-        padding: 0 2rem;
-        background-color: #00a9a0;
-    }
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 130px;
+    padding: 0 2rem;
+    background-color: #00a9a0;
+}
 
-    .brand {
-        display: flex;
-        align-items: center;
-    }
+.brand {
+    display: flex;
+    align-items: center;
+}
 
-    a .img1::hover {
-        transform: none;
-    }
+a .img1::hover {
+    transform: none;
+}
 
-    .logo-container {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        width: 120px;
-        height: 120px;
-        padding: 0px;
-        filter: invert(100%) sepia(4%) saturate(15%) hue-rotate(33deg) brightness(103%) contrast(106%);
-    }
+.logo-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 120px;
+    height: 120px;
+    padding: 0px;
+    filter: invert(100%) sepia(4%) saturate(15%) hue-rotate(33deg) brightness(103%) contrast(106%);
+}
 
-    a {
-        text-decoration: none;
-        color: #f9f9f9;
-    }
+a {
+    text-decoration: none;
+    color: #f9f9f9;
+}
 
-    a:hover {
-        color: #b0f9f9;
-    }
-
+a:hover {
+    color: #b0f9f9;
+}
 </style>
