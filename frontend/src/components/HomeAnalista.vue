@@ -18,7 +18,6 @@
           <td>
             <button @click="revisarTicket(ticket.id)">Revisar</button>
             <button @click="responderTicket(ticket.id)">Responder</button>
-            <button @click="eliminarTicket(ticket.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
@@ -54,11 +53,6 @@ const revisarTicket = (ticketId) => {
 const responderTicket = (ticketId) => {
   // Lógica para responder al ticket con el ID dado
   console.log(`Respondiendo al ticket con ID: ${ticketId}`);
-}
-
-const eliminarTicket = (ticketId) => {
-  // Lógica para eliminar el ticket con el ID dado
-  console.log(`Eliminando ticket con ID: ${ticketId}`);
 }
 </script>
   

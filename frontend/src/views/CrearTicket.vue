@@ -17,7 +17,7 @@
     <div class="form-group">
       <label for="subject">Asunto:</label>
       <textarea id="subject" v-model="subject" placeholder="Escribe el asunto aquí"></textarea>
-      <p v-if="!isSubjectValid" class="invalid-subject">Describa el asunto del ticket</p>
+      <p v-if="!isSubjectValid" class="invalid-subject">Escriba al menos 5 caracteres</p>
     </div>
 
     <div class="form-group">
@@ -69,7 +69,7 @@ const isRutValid = computed(() => {
 
 const isSubjectValid = computed(() => {
   // Verifica si el campo de asunto tiene al menos 5 caracteres
-  return subject.value.trim().length > 5
+  return subject.value.trim().length >= 5
 })
 
 const areAllFieldsFilled = computed(() => {

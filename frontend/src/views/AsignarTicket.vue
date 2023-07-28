@@ -18,10 +18,9 @@
             <tr v-for="ticket in tickets" :key="ticket.id">
               <td>{{ ticket.id }}</td>
               <td>{{ ticket.asunto }}</td>
-              <td>{{ ticket.estado }}</td>
-              <td>{{ ticket.priodidad }}</td>
+              <td>{{ ticket.estado.nombre }}</td>
               <td>
-                <button class="select-button" @click="selectTicket(ticket)" :disabled="selectedTicket || assignedTicket">
+                <button class="select-button" @click="selectTicket(ticket.id)">
                   Seleccionar
                 </button>
               </td>
@@ -47,8 +46,7 @@
               <td>{{ analista.nombre }}</td>
               <td>{{ analista.area.nombre }}</td>
               <td>
-                <button class="select-button" @click="selectAnalista(analista)"
-                  :disabled="selectedAnalista || assignedTicket">
+                <button class="select-button" @click="selectAnalista(analista.id)">
                   Seleccionar
                 </button>
               </td>
@@ -73,8 +71,7 @@
         </select>
       </div>
 
-      <button class="assign-button" :disabled="!selectedTicket || !selectedAnalista || assignedTicket"
-        @click="assignAnalyst">
+      <button class="assign-button" :disabled="!verifyFields" @click="assignAnalyst">
         Asignar
       </button>
 
@@ -89,6 +86,9 @@
 import { onMounted, ref } from 'vue';
 import http from '../http-common';
 import { store } from '../store';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const user = store.user
 
@@ -116,24 +116,36 @@ onMounted(async () => {
 
 let selectedTicket = null
 let selectedAnalista = null
-let assignedTicket = false
 let prioridad = ''
 
 const selectTicket = (ticket) => {
+  console.log(ticket)
   selectedTicket = ticket
 }
 
 const selectAnalista = (analista) => {
+  console.log(analista)
   selectedAnalista = analista
+}
+
+const verifyFields = () => {
+  if (selectedTicket && selectedAnalista) {
+    return true
+  } else {
+    return false
+  }
 }
 
 const assignAnalyst = () => {
   if (prioridad) {
-    const id = selectedTicket.id,
+    const id = selectedTicket,
       data = {
-        encargado: selectedAnalista.id,
-        prioridad: prioridad
+        encargado: selectedAnalista,
+        prioridad: prioridad,
+        estado: 2
       }
+
+    console.log(data)
     http.put('/ticket/' + id, data)
       .then((response) => {
         console.log(response.data)
@@ -141,8 +153,7 @@ const assignAnalyst = () => {
       .catch((e) => {
         console.log(e)
       })
-    console.log(`Asignando el ticket "${selectedTicket.descripcion}" al analista "${selectedAnalista.nombre}" con prioridad "${prioridad}"`);
-    assignedTicket = true;
+    router.push("/home")
   } else {
     alert('Debes seleccionar una prioridad antes de asignar el ticket.');
   }

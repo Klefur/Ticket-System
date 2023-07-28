@@ -44,7 +44,6 @@ public class TicketService {
 
     public String update(Ticket ticket, Long id) {
         Ticket temp;
-        System.out.println(ticket.toString());
         try {
             temp = show(id);
             if (ticket.getRut() != null) {
@@ -58,6 +57,9 @@ public class TicketService {
             }
             if (ticket.getArea() != null) {
                 temp.setArea(ticket.getArea().getId());
+            }
+            if (ticket.getPrioridad() != null) {
+                temp.setPrioridad(temp.getPrioridad());
             }
             if (ticket.getEstado() != null) {
                 temp.setEstado(ticket.getEstado().getId());

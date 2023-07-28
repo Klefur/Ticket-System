@@ -1,6 +1,6 @@
-insert into rol (nombre) values ('Usuario');
-insert into rol (nombre) values ('Analista');
-insert into rol (nombre) values ('Jefe Analista');
+insert into rol (nombre) values ('usuario');
+insert into rol (nombre) values ('analista');
+insert into rol (nombre) values ('jefe analista');
 
 insert into area (nombre) values ('FING');
 insert into area (nombre) values ('FAE');
